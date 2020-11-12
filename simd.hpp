@@ -53,10 +53,10 @@
 #include "vector_size.hpp"
 #endif
 
-#if defined( __CUDACC__ )
+#if defined(__CUDACC__)
 #include "cuda_warp.hpp"
 
-#elif defined( __HIPCC__ )
+#elif defined(__HIPCC__)
 #include "hip_wavefront.hpp"
 
 #else
@@ -73,6 +73,10 @@
 #include "avx512.hpp"
 #endif
 
+#ifdef __ARM_FEATURE_SVE
+#include "sve.hpp"
+#endif
+
 #ifdef __ARM_NEON
 #include "neon.hpp"
 #endif
@@ -83,13 +87,15 @@
 
 #endif
 
-namespace SIMD_NAMESPACE {
+namespace SIMD_NAMESPACE
+{
 
-namespace simd_abi {
+namespace simd_abi
+{
 
 #if defined(__CUDACC__)
 using native = scalar;
-#elif defined(__HIPCC__) 
+#elif defined(__HIPCC__)
 using native = scalar;
 #elif defined(__AVX512F__)
 using native = avx512;
@@ -97,6 +103,8 @@ using native = avx512;
 using native = avx;
 #elif defined(__SSE2__)
 using native = sse;
+#elif defined(__ARM_FEATURE_SVE)
+using native = sve;
 #elif defined(__ARM_NEON)
 using native = neon;
 #elif defined(__VSX__)
@@ -105,9 +113,8 @@ using native = vsx;
 using native = pack<8>;
 #endif
 
-}
+} // namespace simd_abi
 
-template <class T>
-using native_simd = simd<T, simd_abi::native>;
+template <class T> using native_simd = simd<T, simd_abi::native>;
 
-}
+} // namespace SIMD_NAMESPACE
