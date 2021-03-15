@@ -78,11 +78,11 @@ public:
     {
         return 512 / 8 / sizeof(float);
     }
-    SIMD_ALWAYS_INLINE inline constexpr simd_mask(svbool_t const &value_in)
+    SIMD_ALWAYS_INLINE inline simd_mask(svbool_t const &value_in)
         : m_value(svdup_n_u32_z(value_in, 1))
     {
     }
-    SIMD_ALWAYS_INLINE inline constexpr svbool_t get() const
+    SIMD_ALWAYS_INLINE inline svbool_t get() const
     {
         return svcmpne_n_u32(svptrue_b32(), m_value, 0);
     }
@@ -144,7 +144,7 @@ public:
         svint32_t offsets = svindex_s32(0, stride);
         m_value = svld1_gather_s32offset_f32(svptrue_b32(), ptr, offsets);
     }
-    SIMD_ALWAYS_INLINE inline constexpr simd(svfloat32_t const &value_in)
+    SIMD_ALWAYS_INLINE inline simd(svfloat32_t const &value_in)
         : m_value(value_in)
     {
     }
@@ -178,7 +178,7 @@ public:
     {
         svst1_f32(svptrue_b32(), ptr, m_value);
     }
-    SIMD_ALWAYS_INLINE inline constexpr svfloat32_t get() const
+    SIMD_ALWAYS_INLINE inline svfloat32_t get() const
     {
         return m_value;
     }
@@ -277,11 +277,11 @@ public:
     {
         return 512 / 8 / sizeof(double);
     }
-    SIMD_ALWAYS_INLINE inline constexpr simd_mask(svbool_t const &value_in)
+    SIMD_ALWAYS_INLINE inline simd_mask(svbool_t const &value_in)
         : m_value(svdup_n_u64_z(value_in, 1))
     {
     }
-    SIMD_ALWAYS_INLINE inline constexpr svbool_t get() const
+    SIMD_ALWAYS_INLINE inline svbool_t get() const
     {
         return svcmpne_n_u64(svptrue_b64(), m_value, 0);
     }
@@ -343,7 +343,7 @@ public:
         svint64_t offsets = svindex_s64(0, stride);
         m_value = svld1_gather_s64offset_f64(svptrue_b32(), ptr, offsets);
     }
-    SIMD_ALWAYS_INLINE inline constexpr simd(svfloat64_t const &value_in)
+    SIMD_ALWAYS_INLINE inline simd(svfloat64_t const &value_in)
         : m_value(value_in)
     {
     }
@@ -377,7 +377,7 @@ public:
     {
         svst1_f64(svptrue_b64(), ptr, m_value);
     }
-    SIMD_ALWAYS_INLINE inline constexpr svfloat64_t get() const
+    SIMD_ALWAYS_INLINE inline svfloat64_t get() const
     {
         return m_value;
     }
